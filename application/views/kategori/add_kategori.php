@@ -1,7 +1,7 @@
 <?php #echo form_open('member/register', array('class' => 'form-horizontal form-bordered', 'id' => 'submit_form')); ?>
 <div class="form-group mb-lg">
    <label>Kategori</label>
-   <input name="kategori" id="kategori" type="text" class="form-control input-lg" required />
+   <input name="kategori" id="kategori" type="text" class="form-control" required />
 </div>
 
 <div class="row">

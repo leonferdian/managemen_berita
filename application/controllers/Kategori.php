@@ -89,7 +89,7 @@ class Kategori extends MY_Controller
 	public function proses_add_kategori()
 	{
 		if (count($_POST)) {
-			$kategori = isset($_POST['kategori']) ? trim($_POST['kategori']) : '';
+			$kategori = isset($_POST['kategori']) ? trim(str_replace("'","''",$_POST['kategori'])) : '';
 
 			$data = array(
 				'kategori_id' => $this->randomHEX(3),
@@ -109,7 +109,7 @@ class Kategori extends MY_Controller
 	public function proses_edit_kategori()
 	{
 		if (count($_POST)) {
-			$kategori = isset($_POST['kategori']) ? trim($_POST['kategori']) : '';
+			$kategori = isset($_POST['kategori']) ? trim(str_replace("'","''",$_POST['kategori'])) : '';
 
 			$sql = "UPDATE kategori set kategori = '".$kategori."' where kategori_id = '".$_POST['kategori_id']."'";
 

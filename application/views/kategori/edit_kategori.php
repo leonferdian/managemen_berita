@@ -1,7 +1,7 @@
 <?php #echo form_open('member/register', array('class' => 'form-horizontal form-bordered', 'id' => 'submit_form')); ?>
 <div class="form-group mb-lg">
    <label>Kategori</label>
-   <input name="kategori" id="kategori" type="text" class="form-control input-lg" value="<?php echo $row_data['kategori']; ?>" required />
+   <input name="kategori" id="kategori" type="text" class="form-control" value="<?php echo $row_data['kategori']; ?>" required />
    <input id="kategori_id" type="hidden" value="<?php echo $row_data['kategori_id']; ?>" required />
 </div>
 

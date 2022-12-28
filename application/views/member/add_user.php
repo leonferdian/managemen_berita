@@ -1,18 +1,18 @@
 <?php #echo form_open('member/register', array('class' => 'form-horizontal form-bordered', 'id' => 'submit_form')); ?>
 <div class="form-group mb-lg">
    <label>Username</label>
-   <input name="nama" id="nama" type="text" class="form-control input-lg" required />
+   <input name="nama" id="nama" type="text" class="form-control" required />
 </div>
 
 <div class="form-group mb-none">
    <div class="row">
       <div class="col-sm-6 mb-lg">
          <label>Password</label>
-         <input name="password" id="password" type="password" class="form-control input-lg" required />
+         <input name="password" id="password" type="password" class="form-control" required />
       </div>
       <div class="col-sm-6 mb-lg">
          <label>Password Confirmation</label>
-         <input name="pwd_confirm" id="pwd_confirm" type="password" class="form-control input-lg" required />
+         <input name="pwd_confirm" id="pwd_confirm" type="password" class="form-control" required />
       </div>
    </div>
 </div>
