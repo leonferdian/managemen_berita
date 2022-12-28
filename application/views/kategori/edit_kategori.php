@@ -1,21 +1,8 @@
 <?php #echo form_open('member/register', array('class' => 'form-horizontal form-bordered', 'id' => 'submit_form')); ?>
 <div class="form-group mb-lg">
-   <label>Username</label>
-   <input name="nama" id="nama" type="text" class="form-control input-lg" value="<?php echo $row_data['username']; ?>" required />
-   <input type="hidden" id="user_id" value="<?php echo $row_data['user_id']; ?>">
-</div>
-
-<div class="form-group mb-none">
-   <div class="row">
-      <div class="col-sm-6 mb-lg">
-         <label>Password</label>
-         <input name="password" id="password" type="password" class="form-control input-lg" required />
-      </div>
-      <div class="col-sm-6 mb-lg">
-         <label>Password Confirmation</label>
-         <input name="pwd_confirm" id="pwd_confirm" type="password" class="form-control input-lg" required />
-      </div>
-   </div>
+   <label>Kategori</label>
+   <input name="kategori" id="kategori" type="text" class="form-control input-lg" value="<?php echo $row_data['kategori']; ?>" required />
+   <input id="kategori_id" type="hidden" value="<?php echo $row_data['kategori_id']; ?>" required />
 </div>
 
 <div class="row">

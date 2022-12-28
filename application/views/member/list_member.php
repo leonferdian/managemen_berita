@@ -128,7 +128,7 @@
                     <div class="right-wrapper pull-right">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="index.html">
+                                <a href="#">
                                     <i class="fa fa-home"></i>
                                 </a>
                             </li>
@@ -292,21 +292,18 @@
             }
         }
 
-        function delete_user() {
+        function delete_user(user_id) {
             var fd = new FormData();
-
-            var user_id = $('#user_id').val();
-            fd.append('user_id', user_id);
 
             var pwd_confirm = $('#pwd_confirm').val();
             fd.append('pwd_confirm', pwd_confirm);
             if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
                 $.ajax({
                     type: "POST",
-                    processData: false, //important
-                    contentType: false, //important
+                    // processData: false, //important
+                    // contentType: false, //important
                     url: "delete",
-                    data: fd,
+                    data: {user_id:user_id},
                     success: function(responseText) {
                         alert(responseText);
                         location.reload();

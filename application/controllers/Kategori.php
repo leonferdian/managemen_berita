@@ -19,49 +19,34 @@ class Kategori extends MY_Controller
 		$this->render($data);
 	}
 
-	public function add_user()
+	public function add_kategori()
 	{
 		$data = [
-			'page_title' => 'Add User',
+			'page_title' => 'Add kategori',
 			'parent_title' => ''
 		];
 
 		$this->_assets();
-		$this->render($data, 'kategori/add_user');
+		$this->render($data, 'kategori/add_kategori');
 	}
 
-	public function edit_user()
+	public function edit_kategori()
 	{
-		$query = $this->db->query("SELECT * FROM user where user_id = '" . $_POST['user_id'] . "'");
+		$query = $this->db->query("SELECT * FROM kategori where kategori_id = '" . $_POST['kategori_id'] . "'");
 		$row_data = [];
 		foreach ($query->result() as $row) {
-			$row_data['user_id'] = $row->user_id;
-			$row_data['username'] = $row->username;
+			$row_data['kategori_id'] = $row->kategori_id;
+			$row_data['kategori'] = $row->kategori;
 		}
 
 		$data = [
-			'page_title' => 'Edit User',
+			'page_title' => 'Edit kategori',
 			'parent_title' => '',
 			'row_data' => $row_data
 		];
 
 		$this->_assets();
-		$this->render($data, 'kategori/edit_user');
-	}
-
-	public function manajemen_user()
-	{
-		if (!isset($_SESSION['user_id'])) {
-			redirect('kategori/login');
-		}
-
-		$data = [
-			'page_title' => 'Manajemen User',
-			'parent_title' => ''
-		];
-
-		$this->_assets();
-		$this->render($data, 'kategori/list_kategori');
+		$this->render($data, 'kategori/edit_kategori');
 	}
 
 	public function list_data()
@@ -74,19 +59,19 @@ class Kategori extends MY_Controller
 		$search = isset($_GET['search']['value']) ? $_GET['search']['value'] : '';
 
 		$total = 0;
-		$query = $this->db->query("SELECT COUNT(*) as total FROM user");
+		$query = $this->db->query("SELECT COUNT(*) as total FROM kategori");
 		$row = $query->row();
 		if (isset($row)) $total = $row->total;
 
 		$total_filter = $total;
 		$data = array();
-		$qs = $this->db->query("SELECT * FROM user order by username LIMIT $start, $length");
+		$qs = $this->db->query("SELECT * FROM kategori order by kategori LIMIT $start, $length");
 		$no = 1;
 		foreach ($qs->result_array() as $row) {
 			$data[] = array(
-				$row['user_id'],
-				$row['username'],
-				'<a class="btn btn-sm btn-info" href="#" onclick="edit_user('."'".$row['user_id']."'".')">edit</a> <a class="btn btn-sm btn-danger" href="#" onclick="delete_user('."'".$row['user_id']."'".')">delete</a>'
+				$row['kategori_id'],
+				$row['kategori'],
+				'<a class="btn btn-sm btn-info" href="#" onclick="edit_kategori('."'".$row['kategori_id']."'".')">edit</a> <a class="btn btn-sm btn-danger" href="#" onclick="delete_kategori('."'".$row['kategori_id']."'".')">delete</a>'
 			);
 			$no++;
 		}
@@ -101,44 +86,36 @@ class Kategori extends MY_Controller
 		$this->render_json($response);
 	}
 
-	public function register()
+	public function proses_add_kategori()
 	{
 		if (count($_POST)) {
-			$nama = isset($_POST['nama']) ? trim($_POST['nama']) : '';
-			$password = isset($_POST['password']) ? md5("AhmadBahaudinNursalim" . sha1(trim($_POST['password'])) . "AhmadBahaudinNursalim") : '';
-
+			$kategori = isset($_POST['kategori']) ? trim($_POST['kategori']) : '';
 
 			$data = array(
-				'user_id' => $this->randomHEX(3),
-				'username' => $nama,
-				'password' => $password
+				'kategori_id' => $this->randomHEX(3),
+				'kategori' => $kategori
 			);
 
-			$sql = "INSERT INTO user (" . implode(',', array_keys($data)) . ") VALUES ('" . implode("','", array_values($data)) . "')";
+			$sql = "INSERT INTO kategori (" . implode(',', array_keys($data)) . ") VALUES ('" . implode("','", array_values($data)) . "')";
 			$stmt = $this->db->query($sql);
 			if ($stmt) {
-				echo "Register success, click ok to login";
+				echo "Add kategori success";
 			} else {
 				echo "Error: `$sql`";
 			}
 		}
 	}
 
-	public function proses_edit_user()
+	public function proses_edit_kategori()
 	{
 		if (count($_POST)) {
-			$nama = isset($_POST['nama']) ? trim($_POST['nama']) : '';
-			$password = isset($_POST['password']) ? md5("AhmadBahaudinNursalim" . sha1(trim($_POST['password'])) . "AhmadBahaudinNursalim") : '';
-			$sql = "";
-			if ($password != "") {
-				$sql = "UPDATE user set username = '".$nama."' ,password='".$password."' where user_id = '".$_POST['user_id']."'";
-			} else {
-				$sql = "UPDATE user set username = '".$nama."' where user_id = '".$_POST['user_id']."'";
-			}
+			$kategori = isset($_POST['kategori']) ? trim($_POST['kategori']) : '';
+
+			$sql = "UPDATE kategori set kategori = '".$kategori."' where kategori_id = '".$_POST['kategori_id']."'";
 
 			$stmt = $this->db->query($sql);
 			if ($stmt) {
-				echo "Success edit user";
+				echo "Success edit kategori";
 			} else {
 				echo "Error: `$sql`";
 			}
@@ -148,11 +125,11 @@ class Kategori extends MY_Controller
 	public function delete()
 	{
 		if (count($_POST)) {
-			$sql = "DELETE FROM user where user_id = '".$_POST['user_id']."'";
+			$sql = "DELETE FROM kategori where kategori_id = '".$_POST['kategori_id']."'";
 
 			$stmt = $this->db->query($sql);
 			if ($stmt) {
-				echo "User berhasil dihapus";
+				echo "Kategori berhasil dihapus";
 			} else {
 				echo "Error: `$sql`";
 			}

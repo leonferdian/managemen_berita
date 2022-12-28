@@ -168,7 +168,7 @@ class Member extends MY_Controller
 			$sql = "INSERT INTO user (" . implode(',', array_keys($data)) . ") VALUES ('" . implode("','", array_values($data)) . "')";
 			$stmt = $this->db->query($sql);
 			if ($stmt) {
-				echo "Register success, click ok to login";
+				echo "Register user success";
 			} else {
 				echo "Error: `$sql`";
 			}

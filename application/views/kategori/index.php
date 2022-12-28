@@ -72,7 +72,8 @@
                 <div id="userbox" class="userbox">
                     <a href="#" data-toggle="dropdown">
                         <!-- <figure class="profile-picture">
-                            <img src="<?php #echo site_url('images/avatar/' . $_SESSION['foto']); ?>" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo site_url('images/avatar/' . $_SESSION['foto']); ?>" />
+                            <img src="<?php #echo site_url('images/avatar/' . $_SESSION['foto']); 
+                                        ?>" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo site_url('images/avatar/' . $_SESSION['foto']); ?>" />
                         </figure> -->
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
                             <span class="name"><?php echo $_SESSION['username']; ?></span>
@@ -115,8 +116,8 @@
                     </div>
                 </div>
 
-                
-                <?php $this->load->view('_partials/back_page/side_menu');?>
+
+                <?php $this->load->view('_partials/back_page/side_menu'); ?>
 
             </aside>
             <!-- end: sidebar -->
@@ -128,7 +129,7 @@
                     <div class="right-wrapper pull-right">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="index.html">
+                                <a href="#">
                                     <i class="fa fa-home"></i>
                                 </a>
                             </li>
@@ -194,7 +195,7 @@
                 type: "POST",
                 // processData: false, //important
                 // contentType: false, //important
-                url: "add_kategori",
+                url: "kategori/add_kategori",
                 // data: fd,
                 success: function(responseText) {
                     $('#modal-content .modal-body').html(responseText);
@@ -206,45 +207,13 @@
             });
         }
 
-        function register() {
-            var fd = new FormData();
-
-            var nama = $('#nama').val();
-            fd.append('nama', nama);
-
-            var password = $('#password').val();
-            fd.append('password', password);
-
-            var pwd_confirm = $('#pwd_confirm').val();
-            fd.append('pwd_confirm', pwd_confirm);
-            if (password == pwd_confirm) {
-                $.ajax({
-                    type: "POST",
-                    processData: false, //important
-                    contentType: false, //important
-                    url: "register",
-                    data: fd,
-                    success: function(responseText) {
-                        alert(responseText);
-                        location.reload();
-                    },
-                    error: function(data) {
-                        alert(data);
-                        $("#progress1").hide();
-                    }
-                });
-            } else {
-                alert('Password not matcht!');
-            }
-        }
-
         function edit_kategori(kategori_id) {
             $('#modal-content').modal('show');
             $.ajax({
                 type: "POST",
                 // processData: false, //important
                 // contentType: false, //important
-                url: "edit_kategori",
+                url: "kategori/edit_kategori",
                 data: {
                     kategori_id: kategori_id
                 },
@@ -258,55 +227,65 @@
             });
         }
 
+        function save_add() {
+            var fd = new FormData();
+
+            var kategori = $('#kategori').val();
+            fd.append('kategori', kategori);
+
+            $.ajax({
+                type: "POST",
+                processData: false, //important
+                contentType: false, //important
+                url: "kategori/proses_add_kategori",
+                data: fd,
+                success: function(responseText) {
+                    alert(responseText);
+                    location.reload();
+                },
+                error: function(data) {
+                    alert(data);
+                }
+            });
+        }
+
         function save_edit() {
             var fd = new FormData();
 
             var kategori_id = $('#kategori_id').val();
             fd.append('kategori_id', kategori_id);
 
-            var nama = $('#nama').val();
-            fd.append('nama', nama);
+            var kategori = $('#kategori').val();
+            fd.append('kategori', kategori);
 
-            var password = $('#password').val();
-            fd.append('password', password);
-
-            var pwd_confirm = $('#pwd_confirm').val();
-            fd.append('pwd_confirm', pwd_confirm);
-            if (password == pwd_confirm) {
-                $.ajax({
-                    type: "POST",
-                    processData: false, //important
-                    contentType: false, //important
-                    url: "proses_edit_kategori",
-                    data: fd,
-                    success: function(responseText) {
-                        alert(responseText);
-                        location.reload();
-                    },
-                    error: function(data) {
-                        alert(data);
-                    }
-                });
-            } else {
-                alert('Password not matcht!');
-            }
+            $.ajax({
+                type: "POST",
+                processData: false, //important
+                contentType: false, //important
+                url: "kategori/proses_edit_kategori",
+                data: fd,
+                success: function(responseText) {
+                    alert(responseText);
+                    location.reload();
+                },
+                error: function(data) {
+                    alert(data);
+                }
+            });
         }
 
-        function delete_kategori() {
+        function delete_kategori(kategori_id) {
             var fd = new FormData();
 
-            var kategori_id = $('#kategori_id').val();
-            fd.append('kategori_id', kategori_id);
-
-            var pwd_confirm = $('#pwd_confirm').val();
-            fd.append('pwd_confirm', pwd_confirm);
             if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
                 $.ajax({
                     type: "POST",
-                    processData: false, //important
-                    contentType: false, //important
-                    url: "delete",
-                    data: fd,
+                    // processData: false, //important
+                    // contentType: false, //important
+                    url: "kategori/delete",
+                    data: {
+                        kategori_id: kategori_id
+                    },
                     success: function(responseText) {
                         alert(responseText);
                         location.reload();
