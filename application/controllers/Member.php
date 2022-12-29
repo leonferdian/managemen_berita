@@ -11,12 +11,38 @@ class Member extends MY_Controller
 
 	public function index()
 	{
+		if (!isset($_SESSION['user_id'])) {
+			redirect('member/login');
+		}
+		
+		$ajax_link = "member/";
+
 		$data = [
-			'page_title' => 'Login',
-			'parent_title' => ''
+			'page_title' => 'Manajemen User',
+			'parent_title' => '',
+			'ajax_link' => $ajax_link
 		];
+
 		$this->_assets();
 		$this->render($data);
+	}
+
+	public function list_user()
+	{
+		if (!isset($_SESSION['user_id'])) {
+			redirect('member/login');
+		}
+
+		$ajax_link = "";
+
+		$data = [
+			'page_title' => 'Manajemen User',
+			'parent_title' => '',
+			'ajax_link' => $ajax_link
+		];
+
+		$this->_assets();
+		$this->render($data,'member/index');
 	}
 
 	public function register_user()
@@ -30,6 +56,17 @@ class Member extends MY_Controller
 		$this->render($data, 'member/register_user');
 	}
 
+
+	public function login()
+	{
+		$data = [
+			'page_title' => 'Login',
+			'parent_title' => ''
+		];
+		$this->_assets();
+		$this->render($data);
+	}
+
 	public function login_submit()
 	{
 		if (count($_POST)) {
@@ -41,17 +78,8 @@ class Member extends MY_Controller
 					$_SESSION['username'] = $row->username;
 					$_SESSION['user_id'] = $row->user_id;
 					echo "Login Success";
-					// redirect('member/dashboard');
 				} else {
 					echo "Username atau Password salah!";
-					// redirect('member/login');
-					$data = [
-						'page_title' => 'Login',
-						'parent_title' => ''
-					];
-
-					$this->_assets();
-					$this->render($data, 'member/login');
 				}
 			}
 		}
@@ -67,7 +95,7 @@ class Member extends MY_Controller
 
 		// $this->db->query("update member set status_online = '0' where email = '" . $email . "'");
 
-		redirect('member/login');
+		redirect('member');
 	}
 
 	public function add_user()
@@ -98,21 +126,6 @@ class Member extends MY_Controller
 
 		$this->_assets();
 		$this->render($data, 'member/edit_user');
-	}
-
-	public function manajemen_user()
-	{
-		if (!isset($_SESSION['user_id'])) {
-			redirect('member/login');
-		}
-
-		$data = [
-			'page_title' => 'Manajemen User',
-			'parent_title' => ''
-		];
-
-		$this->_assets();
-		$this->render($data, 'member/list_member');
 	}
 
 	public function list_data()
@@ -181,7 +194,7 @@ class Member extends MY_Controller
 			$nama = isset($_POST['nama']) ? trim($_POST['nama']) : '';
 			$password = isset($_POST['password']) ? md5("AhmadBahaudinNursalim" . sha1(trim($_POST['password'])) . "AhmadBahaudinNursalim") : '';
 			$sql = "";
-			if ($password != "") {
+			if ($_POST['password'] != "") {
 				$sql = "UPDATE user set username = '".$nama."' ,password='".$password."' where user_id = '".$_POST['user_id']."'";
 			} else {
 				$sql = "UPDATE user set username = '".$nama."' where user_id = '".$_POST['user_id']."'";

@@ -11,6 +11,10 @@ class Kategori extends MY_Controller
 
 	public function index()
 	{
+		if (!isset($_SESSION['user_id'])) {
+			redirect('member/login');
+		}
+
 		$data = [
 			'page_title' => 'Kategori',
 			'parent_title' => ''

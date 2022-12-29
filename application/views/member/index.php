@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title><?php echo $page_title; ?></title>
+    <title><?php echo $page_title ?></title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -24,19 +24,8 @@
     <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-datepicker/css/datepicker3.css'); ?>" />
 
     <!-- Specific Page Vendor CSS -->
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css'); ?>" />
     <link rel="stylesheet" href="<?php echo site_url('assets/vendor/select2/select2.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/dropzone/css/basic.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/dropzone/css/dropzone.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/summernote/summernote.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/summernote/summernote-bs3.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/codemirror/lib/codemirror.css'); ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/codemirror/theme/monokai.css'); ?>" />
+    <link rel="stylesheet" href="<?php echo site_url('assets/vendor/jquery-datatables-bs3/assets/css/datatables.css'); ?>" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo site_url('assets/stylesheets/theme.css'); ?>" />
@@ -53,111 +42,278 @@
 </head>
 
 <body>
-    <!-- start: page -->
-    <section class="body-sign">
-        <div class="center-sign">
-            <!-- <a href="/" class="logo pull-left">
-                <img src="assets/images/logo.png" height="54" alt="Porto Admin" />
-            </a> -->
+    <section class="body">
 
-            <div class="panel panel-sign">
-                <div class="panel-title-sign mt-xl text-right">
-                    <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
-                </div>
-                <div class="panel-body">
-                    <?php #echo form_open('member/login', array('class'=>'form-horizontal form-bordered', 'id'=>'submit_form'));?>
-                        <div class="form-group mb-lg">
-                            <label>Username</label>
-                            <div class="input-group input-group-icon">
-                                <input name="nama" id="nama" type="text" class="form-control input-lg" />
-                                <span class="input-group-addon">
-                                    <span class="icon icon-lg">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-lg">
-                            <div class="clearfix">
-                                <label class="pull-left">Password</label>
-                                <!-- <a href="pages-recover-password.html" class="pull-right">Lost Password?</a> -->
-                            </div>
-                            <div class="input-group input-group-icon">
-                                <input name="password" id="password" type="password" class="form-control input-lg" />
-                                <span class="input-group-addon">
-                                    <span class="icon icon-lg">
-                                        <i class="fa fa-lock"></i>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- <div class="col-sm-8">
-                                <div class="checkbox-custom checkbox-default">
-                                    <input id="RememberMe" name="rememberme" type="checkbox" />
-                                    <label for="RememberMe">Remember Me</label>
-                                </div>
-                            </div> -->
-                            <div class="col-sm-4 text-right">
-                                <button type="submit" class="btn btn-primary hidden-xs" onclick="login()">Sign In</button>
-                                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" onclick="login()">Sign In</button>
-                            </div>
-                        </div>
-
-                        <!-- <span class="mt-lg mb-lg line-thru text-center text-uppercase">
-                            <span>or</span>
-                        </span> -->
-
-                        <!-- <div class="mb-xs text-center">
-                            <a class="btn btn-facebook mb-md ml-xs mr-xs">Connect with <i class="fa fa-facebook"></i></a>
-                            <a class="btn btn-twitter mb-md ml-xs mr-xs">Connect with <i class="fa fa-twitter"></i></a>
-                        </div> -->
-
-                        <!-- <p class="text-center">Don't have an account yet? <a href="<?php echo site_url('member');?>">Sign Up!</a> -->
-
-                    <?php #echo form_close(); ?>
+        <!-- start: header -->
+        <header class="header">
+            <div class="logo-container">
+                <!-- <a href="../" class="logo">
+						<img src="assets/images/logo.png" height="35" alt="Porto Admin" />
+					</a> -->
+                <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
                 </div>
             </div>
 
-            <p class="text-center text-muted mt-md mb-md">&copy; Copyright 2018. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+            <!-- start: search & user box -->
+            <div class="header-right">
+
+                <!-- <form action="pages-search-results.html" class="search nav-form">
+						<div class="input-group input-search">
+							<input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+							</span>
+						</div>
+					</form> -->
+
+                <span class="separator"></span>
+
+                <div id="userbox" class="userbox">
+                    <a href="#" data-toggle="dropdown">
+                        <!-- <figure class="profile-picture">
+                            <img src="<?php #echo site_url('images/avatar/' . $_SESSION['foto']); ?>" alt="Joseph Doe" class="img-circle" data-lock-picture="<?php echo site_url('images/avatar/' . $_SESSION['foto']); ?>" />
+                        </figure> -->
+                        <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                            <span class="name"><?php echo $_SESSION['username']; ?></span>
+                            <span class="role">administrator</span>
+                        </div>
+
+                        <i class="fa custom-caret"></i>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <ul class="list-unstyled">
+                            <li class="divider"></li>
+                            <!-- <li>
+                                <a role="menuitem" tabindex="-1" href="<?php echo site_url('member/profile') ?>"><i class="fa fa-user"></i> My Profile</a>
+                            </li> -->
+                            <!-- <li>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+								</li> -->
+                            <li>
+                                <a role="menuitem" tabindex="-1" href="<?php echo site_url('member/logout/' . $_SESSION['username']) ?>"><i class="fa fa-power-off"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end: search & user box -->
+        </header>
+        <!-- end: header -->
+
+        <div class="inner-wrapper">
+            <!-- start: sidebar -->
+            <aside id="sidebar-left" class="sidebar-left">
+
+                <div class="sidebar-header">
+                    <div class="sidebar-title" style="color: #fff;">
+                        Navigation
+                    </div>
+                    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
+                </div>
+
+                
+                <?php $this->load->view('_partials/back_page/side_menu');?>
+
+            </aside>
+            <!-- end: sidebar -->
+            <!-- end: page -->
+            <section role="main" class="content-body">
+                <header class="page-header">
+                    <h2>Dashboard</h2>
+
+                    <div class="right-wrapper pull-right">
+                        <ol class="breadcrumbs">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-home"></i>
+                                </a>
+                            </li>
+                        </ol>
+
+                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class=""></i></a>
+                    </div>
+                </header>
+
+                <!-- start: page -->
+                <section class="panel">
+                    <header class="panel-heading">
+                        <div class="panel-actions">
+                            <a href="#" class="fa fa-caret-down"></a>
+                            <!-- <a href="#" class="fa fa-times"></a> -->
+                        </div>
+
+                        <h2 class="panel-title">List User</h2>
+                        <div class="row">
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-sm btn-primary" onclick="add_user()"><i class="fa fa-plus-square"></i> Add User</a>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped" id="datatable-ajax" data-url="<?php echo site_url('member/list_data') ?>">
+                            <thead>
+                                <tr>
+                                    <th>User Id</th>
+                                    <th>Nama</th>
+                                    <th style="width: 150px;"><i class="fa fa-cog"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <!-- end: page -->
+            </section>
         </div>
     </section>
-    <!-- end: page -->
+    <div class="modal fade" id="modal-content" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h2 class="modal-title font-weight-bold"></h2>
+                </div>
+                <!-- <span id="progress_view2" style="display:none"><img src="images/loading.gif" width="20" /> Please Wait... </span> -->
+                <div class="modal-body">
 
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-      function login() {
-         var fd = new FormData();
+        function add_user() {
+            $('#modal-content').modal('show');
+            $.ajax({
+                type: "POST",
+                // processData: false, //important
+                // contentType: false, //important
+                url: "<?php echo $ajax_link; ?>add_user",
+                // data: fd,
+                success: function(responseText) {
+                    $('#modal-content .modal-body').html(responseText);
+                },
+                error: function(data) {
+                    alert(data);
+                    // $("#progress1").hide();
+                }
+            });
+        }
 
-         var username = $('#nama').val();
-         fd.append('username', username);
+        function register() {
+            var fd = new FormData();
 
-         var password = $('#password').val();
-         fd.append('password', password);
+            var nama = $('#nama').val();
+            fd.append('nama', nama);
 
-         $.ajax({
-            type: "POST",
-            processData: false, //important
-            contentType: false, //important
-            url: "member/login_submit",
-            data: fd,
-            success: function(responseText) {
-               if (responseText.trim() == "Login Success") {
-                    location.href="member/manajemen-user";
-               } else {
-                    alert(responseText);
-                    // location.reload();
-               }
-               
-            },
-            error: function(data) {
-               alert(data);
-            //    $("#progress1").hide();
+            var password = $('#password').val();
+            fd.append('password', password);
+
+            var pwd_confirm = $('#pwd_confirm').val();
+            fd.append('pwd_confirm', pwd_confirm);
+            if (password == pwd_confirm) {
+                $.ajax({
+                    type: "POST",
+                    processData: false, //important
+                    contentType: false, //important
+                    url: "<?php echo $ajax_link; ?>register",
+                    data: fd,
+                    success: function(responseText) {
+                        alert(responseText);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        alert(data);
+                        $("#progress1").hide();
+                    }
+                });
+            } else {
+                alert('Password not matcht!');
             }
-         });
-      }
-   </script>
+        }
+
+        function edit_user(user_id) {
+            $('#modal-content').modal('show');
+            $.ajax({
+                type: "POST",
+                // processData: false, //important
+                // contentType: false, //important
+                url: "<?php echo $ajax_link; ?>edit_user",
+                data: {
+                    user_id: user_id
+                },
+                success: function(responseText) {
+                    $('#modal-content .modal-body').html(responseText);
+                },
+                error: function(data) {
+                    alert(data);
+                    // $("#progress1").hide();
+                }
+            });
+        }
+
+        function save_edit() {
+            var fd = new FormData();
+
+            var user_id = $('#user_id').val();
+            fd.append('user_id', user_id);
+
+            var nama = $('#nama').val();
+            fd.append('nama', nama);
+
+            var password = $('#password').val();
+            fd.append('password', password);
+
+            var pwd_confirm = $('#pwd_confirm').val();
+            fd.append('pwd_confirm', pwd_confirm);
+            if (password == pwd_confirm) {
+                $.ajax({
+                    type: "POST",
+                    processData: false, //important
+                    contentType: false, //important
+                    url: "<?php echo $ajax_link; ?>proses_edit_user",
+                    data: fd,
+                    success: function(responseText) {
+                        alert(responseText);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        alert(data);
+                    }
+                });
+            } else {
+                alert('Password not matcht!');
+            }
+        }
+
+        function delete_user(user_id) {
+            var fd = new FormData();
+
+            var pwd_confirm = $('#pwd_confirm').val();
+            fd.append('pwd_confirm', pwd_confirm);
+            if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
+                $.ajax({
+                    type: "POST",
+                    // processData: false, //important
+                    // contentType: false, //important
+                    url: "<?php echo $ajax_link; ?>delete",
+                    data: {user_id:user_id},
+                    success: function(responseText) {
+                        alert(responseText);
+                        location.reload();
+                    },
+                    error: function(data) {
+                        alert(data);
+                    }
+                });
+            }
+        }
+    </script>
 
     <!-- Vendor -->
     <script src="<?php echo site_url('assets/vendor/jquery/jquery.js'); ?>"></script>
@@ -169,29 +325,9 @@
     <script src="<?php echo site_url('assets/vendor/jquery-placeholder/jquery.placeholder.js'); ?>"></script>
 
     <!-- Specific Page Vendor -->
-    <script src="<?php echo site_url('assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js'); ?>"></script>
     <script src="<?php echo site_url('assets/vendor/select2/select2.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/jquery-maskedinput/jquery.maskedinput.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/fuelux/js/spinner.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/dropzone/dropzone.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-markdown/js/markdown.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-markdown/js/to-markdown.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-markdown/js/bootstrap-markdown.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/lib/codemirror.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/addon/selection/active-line.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/addon/edit/matchbrackets.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/mode/javascript/javascript.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/mode/xml/xml.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/mode/htmlmixed/htmlmixed.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/codemirror/mode/css/css.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/summernote/summernote.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js'); ?>"></script>
-    <script src="<?php echo site_url('assets/vendor/ios7-switch/ios7-switch.js'); ?>"></script>
+    <script src="<?php echo site_url('assets/vendor/jquery-datatables/media/js/jquery.dataTables.js'); ?>"></script>
+    <script src="<?php echo site_url('assets/vendor/jquery-datatables-bs3/assets/js/datatables.js'); ?>"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="<?php echo site_url('assets/javascripts/theme.js'); ?>"></script>
@@ -204,9 +340,7 @@
 
 
     <!-- Examples -->
-    <script src="<?php echo site_url('assets/javascripts/forms/examples.advanced.form.js'); ?>" />
-    </script>
-
+    <script src="<?php echo site_url('assets/javascripts/tables/examples.datatables.ajax.js'); ?>"></script>
 </body>
 
 </html>

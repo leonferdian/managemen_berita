@@ -126,11 +126,11 @@
                type: "POST",
                processData: false, //important
                contentType: false, //important
-               url: "member/register",
+               url: "register",
                data: fd,
                success: function(responseText) {
                   alert(responseText);
-                  location.href = "member/login";
+                  location.href = "";
                },
                error: function(data) {
                   alert(data);
